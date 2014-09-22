@@ -1,0 +1,20 @@
+{
+  "name": "kosmtik-overpass-layer",
+  "version": "0.0.1",
+  "description": "Add overpass layers to your Kosmetik project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "kosmtik",
+    "overpass",
+    "openstreetmap",
+    "map"
+  ],
+  "author": "Yohan Boniface",
+  "license": "WTFPL",
+  "dependencies": {
+    "osmtogeojson": "^2.1.0"
+  }
+}
