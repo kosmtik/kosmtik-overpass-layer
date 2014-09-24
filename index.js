@@ -9,8 +9,8 @@ var log = function () {
 };
 
 var OverpassLayer = function (config) {
-    config.commands.project.option('overpass-url', {help: 'URL to Overpass API to use [Default: ' + baseURL + ']'});
-    config.commands.project.option('force-overpass', {help: 'Refetch overpass data even if local file exists [Default: false]', flag: true});
+    config.commands.serve.option('overpass-url', {help: 'URL to Overpass API to use [Default: ' + baseURL + ']'});
+    config.commands.serve.option('force-overpass', {help: 'Refetch overpass data even if local file exists [Default: false]', flag: true});
     config.beforeState('project:loaded', this.patchMML.bind(this));
 };
 
@@ -20,12 +20,11 @@ OverpassLayer.prototype.patchMML = function (e) {
         length = e.project.mml.Layer.length,
         force = e.project.config.parsed_opts['force-overpass'],
         incr = function () {
-            if (processed === 0) e.start();
             processed++;
         },
         decr = function () {
             processed--;
-            if (processed === 0) e.end();
+            if (processed === 0) e.continue();
         };
     var onError = function (err) {
         decr();
@@ -55,6 +54,7 @@ OverpassLayer.prototype.patchMML = function (e) {
         };
         http.get(baseURL + encodeURIComponent(layer.Datasource.request), onResponse).on('error', onError);
     };
+    incr();  // Be sure decr() will be called at least once
     for (var i = 0; i < e.project.mml.Layer.length; i++) {
         layer = e.project.mml.Layer[i];
         if (layer.Datasource && layer.Datasource.type === 'overpass' && layer.Datasource.request) {
@@ -72,6 +72,7 @@ OverpassLayer.prototype.patchMML = function (e) {
             processRequest(layer);
         }
     }
+    decr();
 };
 
 exports.Plugin = OverpassLayer;
