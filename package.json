@@ -1,6 +1,6 @@
 {
   "name": "kosmtik-overpass-layer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Add overpass layers to your Kosmetik project",
   "main": "index.js",
   "scripts": {
@@ -16,5 +16,6 @@
   "license": "WTFPL",
   "dependencies": {
     "osmtogeojson": "^2.1.0"
-  }
+  },
+  "kosmtik": ">=0.0.2"
 }
