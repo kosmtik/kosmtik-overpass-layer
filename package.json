@@ -17,5 +17,9 @@
   "dependencies": {
     "osmtogeojson": "^2.1.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kosmtik/kosmtik-overpass-layer.git"
+  },
   "kosmtik": ">=0.0.2"
 }
