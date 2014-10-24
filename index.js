@@ -19,6 +19,7 @@ OverpassLayer.prototype.patchMML = function (e) {
     var processed = 0, layer,
         length = e.project.mml.Layer.length,
         force = e.project.config.parsed_opts['force-overpass'],
+        config = e.project.config,
         incr = function () {
             processed++;
         },
@@ -28,15 +29,11 @@ OverpassLayer.prototype.patchMML = function (e) {
         };
     var onError = function (err) {
         decr();
-        log('Got error: ' + e.message);
+        log('Got error: ' + err.message);
     };
     var processRequest = function (layer) {
         var onResponse = function (res) {
-            if (res.statusCode !== 200) {
-                log('Bad response', res.statusCode);
-                decr();
-                return;
-            }
+            if (res.statusCode !== 200) return onError(new Error('Bad response', res.statusCode));
             var output = '';
             res.setEncoding('utf8');
             res.on('data', function (data) {
@@ -52,7 +49,8 @@ OverpassLayer.prototype.patchMML = function (e) {
                 decr();
             });
         };
-        http.get(baseURL + encodeURIComponent(layer.Datasource.request), onResponse).on('error', onError);
+        var uri = baseURL + encodeURIComponent(layer.Datasource.request);
+        config.helpers.request({uri: uri}).on('response', onResponse).on('error', onError);
     };
     incr();  // Be sure decr() will be called at least once
     for (var i = 0; i < e.project.mml.Layer.length; i++) {

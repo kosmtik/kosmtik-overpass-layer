@@ -1,6 +1,6 @@
 {
   "name": "kosmtik-overpass-layer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Add overpass layers to your Kosmetik project",
   "main": "index.js",
   "scripts": {
@@ -21,5 +21,5 @@
     "type": "git",
     "url": "git://github.com/kosmtik/kosmtik-overpass-layer.git"
   },
-  "kosmtik": ">=0.0.2"
+  "kosmtik": ">=0.0.6"
 }
