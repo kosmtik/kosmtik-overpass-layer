@@ -1,6 +1,5 @@
 var fs = require('fs'),
     path = require('path'),
-    http = require('http'),
     osmtogeojson = require('osmtogeojson'),
     baseURL = 'http://overpass-api.de/api/interpreter?data=[out:json];';
 
@@ -15,9 +14,8 @@ var OverpassLayer = function (config) {
 };
 
 OverpassLayer.prototype.patchMML = function (e) {
-    if (!e.project.mml || !e.project.mml.Layer) return;
+    if (!e.project.mml || !e.project.mml.Layer) return e.continue();
     var processed = 0, layer,
-        length = e.project.mml.Layer.length,
         force = e.project.config.parsed_opts['force-overpass'],
         config = e.project.config,
         incr = function () {
@@ -60,7 +58,7 @@ OverpassLayer.prototype.patchMML = function (e) {
             if (!layer.Datasource.file) layer.Datasource.file = path.join(e.project.dataDir, layer.id + '.geojson');
             layer.Datasource.layer = 'OGRGeoJSON';
             layer.Datasource.type = 'ogr';
-            layer.srs = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
+            layer.srs = '+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs';
             if(fs.existsSync(layer.Datasource.file) && !force) {
                 log('File already exists and not force mode', layer.Datasource.file, 'Skipping');
                 decr();
