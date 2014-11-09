@@ -26,3 +26,7 @@ the layers in normal geojson layers.
 While in your Kosmtik root, run:
 
 `node index.js plugins --install kosmtik-overpass-layer`
+
+## Issues and feature requests
+
+Please report any issue or feature request on the [main kosmtik repository](https://github.com/kosmtik/kosmtik/issues).
