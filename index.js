@@ -31,7 +31,7 @@ OverpassLayer.prototype.patchMML = function (e) {
     };
     var processRequest = function (layer) {
         var onResponse = function (res) {
-            if (res.statusCode !== 200) return onError(new Error('Bad response', res.statusCode));
+            if (res.statusCode !== 200) return onError(new Error('Bad response: ' + res.statusCode));
             var output = '';
             res.setEncoding('utf8');
             res.on('data', function (data) {
