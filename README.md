@@ -1,6 +1,6 @@
 # kosmtik-overpass-layer
 
-Add overpass layers to your Kosmetik project
+Add overpass layers to your Kosmtik project
 
 Just add `"type": "overpass"` and a `request` key with your overpass query in
 your Carto layer. The plugin will run the queries, cache them on disk, and transform
