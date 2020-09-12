@@ -73,4 +73,4 @@ class OverpassLayer {
     };
 }
 
-exports = { Plugin: OverpassLayer };
+exports = module.exports = { Plugin: OverpassLayer };
